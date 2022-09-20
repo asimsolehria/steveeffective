@@ -38,7 +38,7 @@
 
 
 
-    <title> Edm </title>
+    <title> olson + baker </title>
 
 
 
@@ -1613,10 +1613,6 @@
         }
 
         .center {
-
-
-
-            
     </style>
 
 
@@ -1741,8 +1737,8 @@
                                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                         <tbody>
                                                                             <tr>
-                                                                                <td width="66%" style="font-family: 'open-sans', sans-serif ; font-size: 30px ; color: #FFFFFF ; padding-bottom: 10px ;   "><strong style="font-size: 38px ;">Thank you for your order!</strong><br />
-                                                                                    Order #39182</td>
+                                                                                <td width="66%" style="font-family: 'open-sans', sans-serif ; font-size: 30px ; color: #FFFFFF ; padding-bottom: 10px ;   "><strong style="font-size: 38px ;"><?php echo $email_heading; ?>!</strong><br />
+                                                                                    Order #<?php echo $order->get_order_number(); ?></td>
                                                                             </tr>
                                                                         </tbody>
                                                                     </table>
@@ -1782,7 +1778,7 @@
                                                     <table class="body" width="560" border="0" cellspacing="0" cellpadding="0">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="font-family: 'open-sans',sans-serif; font-size: 14px ; color: #323232 ; line-height: 20px ; ">Hi Russell,<br />
+                                                                <td style="font-family: 'open-sans',sans-serif; font-size: 14px ; color: #323232 ; line-height: 20px ; ">Hi <?php echo $order->get_billing_first_name(); ?>,<br />
                                                                     Many thanks for your order with Olson and Baker! Your order has been recieved and is now being processed by our team. Please take a minute to double check we have all the right details below</td>
                                                             </tr>
                                                         </tbody>
@@ -1847,7 +1843,7 @@
                                                                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                                                         <tbody>
                                                                                                             <tr>
-                                                                                                                <td width="50%" style="font-family: 'open-sans',sans-serif ;font-size: 14px ;"><strong>Order #39182 </strong>(9th July 2022)</td>
+                                                                                                                <td width="50%" style="font-family: 'open-sans',sans-serif ;font-size: 14px ;"><strong>Order #<?php echo $order->get_order_number(); ?> </strong>(<?php echo wc_format_datetime($order->get_date_created(), "d M Y"); ?>)</td>
                                                                                                             </tr>
                                                                                                         </tbody>
                                                                                                     </table>
@@ -1868,70 +1864,114 @@
                                             <tr>
                                                 <td class="side-pad" align="center">&nbsp;</td>
                                             </tr>
-                                            <tr>
-                                                <td class="side-pad" align="center">
-                                                    <table class="body" width="560" border="0" cellspacing="0" cellpadding="0">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="column">
-                                                                    <table class="body" width="560" border="0" cellspacing="0" cellpadding="0">
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td class="column">
-                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                        <tbody>
-                                                                                            <tr>
-                                                                                                <td class="column" style="border-top: 3px  solid #333333">&nbsp;</td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td class="column">
-                                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                        <tbody>
-                                                                                                            <tr>
-                                                                                                                <td valign="middle" class="column" style="font-family: 'open-sans',sans-serif ;font-size: 14px ;">
-                                                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                                        <tbody>
-                                                                                                                            <tr>
-                                                                                                                                <td width="37%" class="column" align="center"><img src="https://wordpress-598981-2870265.cloudwaysapps.com/wp-content/uploads/2022/09/product1.jpg" width="190" height="291" alt="" /></td>
-                                                                                                                                <td width="63%" class="column center" style="font-family: 'open-sans',sans-serif ;font-size: 11px ; line-height: 18px ; color: #808080 "><strong style="font-family: 'open-sans',sans-serif ;font-size: 14px ; line-height: 18px ; color: #333333 ">675 Chair</strong><br />
-                                                                                                                                    Brand: Case Furniture<br />
+                                            <?php
+                                            foreach ($order->get_items() as $key => $item) {
+                                                $product = $item->get_product();
+                                                if ($product) {
+                                                    $image_id = $product->get_image_id();
+                                                    $image_url = wp_get_attachment_image_url($image_id, 'thumbnail');
+                                                }
+                                            ?>
+                                                <tr>
+                                                    <td class="side-pad" align="center">
+                                                        <table class="body" width="560" border="0" cellspacing="0" cellpadding="0">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="column">
+                                                                        <table class="body" width="560" border="0" cellspacing="0" cellpadding="0">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td class="column">
+                                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <td class="column" style="border-top: 3px  solid #333333">&nbsp;</td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td class="column">
+                                                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                                                            <tbody>
+                                                                                                                <tr>
+                                                                                                                    <td valign="middle" class="column" style="font-family: 'open-sans',sans-serif ;font-size: 14px ;">
+                                                                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                                                                            <tbody>
+                                                                                                                                <tr>
+                                                                                                                                    <td width="37%" class="column" align="center"><img src="https://wordpress-598981-2870265.cloudwaysapps.com/wp-content/uploads/2022/09/product1.jpg" width="190" height="291" alt="" /></td>
+                                                                                                                                    <td width="63%" class="column center" style="font-family: 'open-sans',sans-serif ;font-size: 11px ; line-height: 18px ; color: #808080 "><strong style="font-family: 'open-sans',sans-serif ;font-size: 14px ; line-height: 18px ; color: #333333 "><?php echo wp_kses_post(apply_filters('woocommerce_order_item_name', $item->get_name(), $item, false)); ?></strong><br />
+                                                                                                                                        <!-- Brand: Case Furniture<br />
 
-                                                                                                                                    Finish: Oak<br />
+                                                                                                                                        Finish: Oak<br />
 
-                                                                                                                                    Base: Black base<br />
+                                                                                                                                        Base: Black base<br />
 
-                                                                                                                                    Colour: Case black leather 100 cow hide<br />
+                                                                                                                                        Colour: Case black leather 100 cow hide<br />
 
-                                                                                                                                    Lead time: Made for you in 3-5 weeks<br />
-                                                                                                                                    <br />
-                                                                                                                                    <strong style=" color: #333333 ">£340 x Quantity: 2</strong>
-                                                                                                                                </td>
-                                                                                                                            </tr>
-                                                                                                                        </tbody>
-                                                                                                                    </table>
-                                                                                                                </td>
-                                                                                                                <td width="100" class="column center" valign="bottom" align="center" style="font-family: 'open-sans',sans-serif ;font-size: 15px ; line-height: 18px ; color: #333333  ; padding-bottom: 25px ;  "><strong>£640</strong></td>
-                                                                                                            </tr>
-                                                                                                        </tbody>
-                                                                                                    </table>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                        </tbody>
-                                                                                    </table>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="side-pad" align="center">&nbsp;</td>
-                                            </tr>
-                                            <tr>
+                                                                                                                                        Lead time: Made for you in 3-5 weeks<br />
+                                                                                                                                        <br /> -->
+
+                                                                                                                                        <?php
+                                                                                                                                        do_action('woocommerce_order_item_meta_start', $item_id, $item, $order, $plain_text);
+
+                                                                                                                                        wc_display_item_meta(
+                                                                                                                                            $item,
+                                                                                                                                            array(
+                                                                                                                                                'before'       => '<ul class="wc-item-meta"><li style="margin-bottom:-12px;">',
+                                                                                                                                                'separator'    => '</li><li style="margin-bottom:-12px;">',
+                                                                                                                                                'after'        => '</li></ul>',
+                                                                                                                                                'label_before' => '<strong class="wc-item-meta-label" style="float: left; margin-' . esc_attr($margin_side) . ': .25em; clear: both">',
+                                                                                                                                            )
+                                                                                                                                        );
+
+                                                                                                                                        // allow other plugins to add additional product information here.
+                                                                                                                                        do_action('woocommerce_order_item_meta_end', $item_id, $item, $order, $plain_text);
+
+                                                                                                                                        ?>
+                                                                                                                                        <br>
+                                                                                                                                        <strong style=" color: #333333 ">
+                                                                                                                                            <?php echo wp_kses_post($order->get_formatted_line_subtotal($item)); ?> x Quantity:
+                                                                                                                                            <?php
+                                                                                                                                            $qty          = $item->get_quantity();
+                                                                                                                                            $refunded_qty = $order->get_qty_refunded_for_item($item_id);
+
+                                                                                                                                            if ($refunded_qty) {
+                                                                                                                                                $qty_display = '<del>' . esc_html($qty) . '</del> <ins>' . esc_html($qty - ($refunded_qty * -1)) . '</ins>';
+                                                                                                                                            } else {
+                                                                                                                                                $qty_display = esc_html($qty);
+                                                                                                                                            }
+                                                                                                                                            echo wp_kses_post(apply_filters('woocommerce_email_order_item_quantity', $qty_display, $item));
+                                                                                                                                            ?>
+
+                                                                                                                                        </strong>
+                                                                                                                                    </td>
+                                                                                                                                </tr>
+                                                                                                                            </tbody>
+                                                                                                                        </table>
+                                                                                                                    </td>
+                                                                                                                    <td width="100" class="column center" valign="bottom" align="center" style="font-family: 'open-sans',sans-serif ;font-size: 15px ; line-height: 18px ; color: #333333  ; padding-bottom: 25px ;  "><strong><?php echo wp_kses_post($order->get_formatted_line_subtotal($item)); ?></strong></td>
+                                                                                                                </tr>
+                                                                                                            </tbody>
+                                                                                                        </table>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="side-pad" align="center">&nbsp;</td>
+                                                </tr>
+                                            <?php
+                                            }
+                                            ?>
+                                            <!-- <tr>
                                                 <td class="side-pad" align="center">
                                                     <table class="body" width="560" border="0" cellspacing="0" cellpadding="0">
                                                         <tbody>
@@ -1991,7 +2031,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="side-pad" align="center">&nbsp;</td>
-                                            </tr>
+                                            </tr> -->
                                             <tr>
                                                 <td class="side-pad" align="center">
                                                     <table class="body" width="560" border="0" cellspacing="0" cellpadding="0">
@@ -2007,7 +2047,7 @@
                                                                                             <tr>
                                                                                                 <td class="column" style="border-top: 2px  solid #BDBDBD">&nbsp;</td>
                                                                                             </tr>
-                                                                                            <tr>
+                                                                                            <!-- <tr>
                                                                                                 <td class="column">
                                                                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                                                         <tbody>
@@ -2033,7 +2073,7 @@
                                                                                                         </tbody>
                                                                                                     </table>
                                                                                                 </td>
-                                                                                            </tr>
+                                                                                            </tr> -->
                                                                                             <tr>
                                                                                                 <td class="column">&nbsp;</td>
                                                                                             </tr>
@@ -2053,54 +2093,36 @@
                                                                                                                                 <td width="58%" class="column center" style="font-family: 'open-sans',sans-serif ;font-size: 11px ; line-height: 18px ; color: #808080 ">
                                                                                                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                                                                                         <tbody>
-                                                                                                                                            <tr>
-                                                                                                                                                <td style="padding-bottom: 8px ; ">
-                                                                                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                                                                        <tbody>
-                                                                                                                                                            <tr>
-                                                                                                                                                                <td width="69%" style="color: #333333 ; font-size: 14px ; ">Subtotal (4 items)</td>
-                                                                                                                                                                <td width="31%" style="color: #333333 ; font-size: 14px ; " align="center">£340</td>
-                                                                                                                                                            </tr>
-                                                                                                                                                        </tbody>
-                                                                                                                                                    </table>
-                                                                                                                                                </td>
-                                                                                                                                            </tr>
-                                                                                                                                            <tr>
-                                                                                                                                                <td style="padding-bottom: 8px ; ">
-                                                                                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                                                                        <tbody>
-                                                                                                                                                            <tr>
-                                                                                                                                                                <td width="69%" style="color: #333333 ; font-size: 14px ; ">Discount</td>
-                                                                                                                                                                <td width="31%" style="color: #333333 ; font-size: 14px ; " align="center">-£34</td>
-                                                                                                                                                            </tr>
-                                                                                                                                                        </tbody>
-                                                                                                                                                    </table>
-                                                                                                                                                </td>
-                                                                                                                                            </tr>
-                                                                                                                                            <tr>
-                                                                                                                                                <td style="padding-bottom: 8px ; ">
-                                                                                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                                                                        <tbody>
-                                                                                                                                                            <tr>
-                                                                                                                                                                <td width="69%" style="color: #333333 ; font-size: 14px ; ">Delivery</td>
-                                                                                                                                                                <td width="31%" style="color: #333333 ; font-size: 14px ; " align="center">£77</td>
-                                                                                                                                                            </tr>
-                                                                                                                                                        </tbody>
-                                                                                                                                                    </table>
-                                                                                                                                                </td>
-                                                                                                                                            </tr>
-                                                                                                                                            <tr>
-                                                                                                                                                <td style="padding-bottom: 8px ; ">
-                                                                                                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                                                                        <tbody>
-                                                                                                                                                            <tr>
-                                                                                                                                                                <td width="69%" style="color: #333333 ; font-size: 14px ; ">Payment type</td>
-                                                                                                                                                                <td width="31%" style="color: #333333 ; font-size: 14px ; " align="center">Pay by card</td>
-                                                                                                                                                            </tr>
-                                                                                                                                                        </tbody>
-                                                                                                                                                    </table>
-                                                                                                                                                </td>
-                                                                                                                                            </tr>
+                                                                                                                                            <?php
+                                                                                                                                            $item_totals = $order->get_order_item_totals();
+
+
+
+                                                                                                                                            if ($item_totals) {
+                                                                                                                                                $i = 0;
+                                                                                                                                                foreach ($item_totals as $total) {
+                                                                                                                                                    if ("Total:" === $total['label']) {
+                                                                                                                                                        continue;
+                                                                                                                                                    }
+                                                                                                                                                    $i++;
+                                                                                                                                            ?>
+                                                                                                                                                    <tr>
+                                                                                                                                                        <td style="padding-bottom: 8px ; ">
+                                                                                                                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                                                                                                                <tbody>
+                                                                                                                                                                    <tr>
+                                                                                                                                                                        <td width="69%" style="color: #333333 ; font-size: 14px ; "><?php echo wp_kses_post($total['label']); ?></td>
+                                                                                                                                                                        <td width="31%" style="color: #333333 ; font-size: 14px ; " align="center"><?php echo wp_kses_post($total['value']); ?></td>
+                                                                                                                                                                    </tr>
+                                                                                                                                                                </tbody>
+                                                                                                                                                            </table>
+                                                                                                                                                        </td>
+                                                                                                                                                    </tr>
+                                                                                                                                            <?php
+                                                                                                                                                }
+                                                                                                                                            }
+                                                                                                                                            ?>
+
                                                                                                                                             <tr>
                                                                                                                                                 <td>&nbsp;</td>
                                                                                                                                             </tr>
@@ -2113,7 +2135,7 @@
                                                                                                                                                         <tbody>
                                                                                                                                                             <tr>
                                                                                                                                                                 <td width="69%" style="color: #333333 ; font-size: 14px ; "><strong>Order Total</strong></td>
-                                                                                                                                                                <td width="31%" style="color: #333333 ; font-size: 14px ; " align="center"><strong>£340</strong></td>
+                                                                                                                                                                <td width="31%" style="color: #333333 ; font-size: 14px ; " align="center"><strong><?php echo $order->get_formatted_order_total(); ?></strong></td>
                                                                                                                                                             </tr>
                                                                                                                                                         </tbody>
                                                                                                                                                     </table>
@@ -2153,28 +2175,34 @@
                                                                                                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                                                                                         <tbody>
                                                                                                                                             <tr>
-                                                                                                                                                <td width="32%" align="center" class="column"><img src="https://wordpress-598981-2870265.cloudwaysapps.com/wp-content/uploads/2022/09/man-shipment.png "width="140" alt="" /></td>
+                                                                                                                                                <td width="32%" align="center" class="column"><img src="https://wordpress-598981-2870265.cloudwaysapps.com/wp-content/uploads/2022/09/man-shipment.png " width="140" alt="" /></td>
                                                                                                                                                 <td width="2%" class="column">&nbsp;</td>
                                                                                                                                                 <td width="32%" class="column" style="font-family: 'open-sans',sans-serif ;font-size: 11px ; line-height: 14px ; color: #333333 " align="center" valign="top"><strong style="font-size: 15px ; ">Shipping Address</strong><br />
                                                                                                                                                     <br />
-                                                                                                                                                    Russell Knight<br />
+                                                                                                                                                    <?php echo $order->get_formatted_shipping_address(); ?>
+                                                                                                                                                    <!-- Russell Knight<br />
                                                                                                                                                     Sum Studios<br />
                                                                                                                                                     1 Hartley Street<br />
                                                                                                                                                     Sheffield<br />
                                                                                                                                                     South Yorkshire<br />
                                                                                                                                                     S2 3AQ<br />
                                                                                                                                                     07535901413
-                                                                                                                                                    russell@olsonbaker.com<br />
+                                                                                                                                                    russell@olsonbaker.com<br /> -->
                                                                                                                                                 </td>
                                                                                                                                                 <td width="2%" class="column">&nbsp;</td>
                                                                                                                                                 <td width="32%" class="column" style="font-family: 'open-sans',sans-serif ;font-size: 11px ; line-height: 14px ; color: #333333 " align="center" valign="top"><strong style="font-size: 15px ; ">Billing Address</strong><br />
                                                                                                                                                     <br />
-                                                                                                                                                    Russell Knight<br />
+                                                                                                                                                    <!-- Russell Knight<br />
                                                                                                                                                     Sum Studios<br />
                                                                                                                                                     1 Hartley Street<br />
                                                                                                                                                     Sheffield<br />
                                                                                                                                                     South Yorkshire<br />
-                                                                                                                                                    S2 3AQ<br /><br />
+                                                                                                                                                    S2 3AQ<br /><br /> -->
+                                                                                                                                                    <?php echo $order->get_formatted_billing_address(); ?>
+                                                                                                                                                    <br>
+                                                                                                                                                    <?php echo $order->get_billing_phone(); ?>
+                                                                                                                                                    <br>
+                                                                                                                                                    <?php echo $order->get_billing_email(); ?>
                                                                                                                                                 </td>
                                                                                                                                             </tr>
                                                                                                                                         </tbody>
@@ -2463,11 +2491,11 @@
                                                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                                         <tbody>
                                                                                             <tr>
-                                                                                                <td align="center"><a href="#"><img src="https://wordpress-598981-2870265.cloudwaysapps.com/wp-content/uploads/2022/09/fb.png" width="50" height="84" alt="" /></a></td>
-                                                                                                <td align="center"><a href="#"><img src="https://wordpress-598981-2870265.cloudwaysapps.com/wp-content/uploads/2022/09/twitter.png" width="50" height="84" alt="" /></a></td>
-                                                                                                <td align="center"><a href="#"><img src="https://wordpress-598981-2870265.cloudwaysapps.com/wp-content/uploads/2022/09/pinterest.png" width="50" height="84" alt="" /></a></td>
-                                                                                                <td align="center"><a href="#"><img src="https://wordpress-598981-2870265.cloudwaysapps.com/wp-content/uploads/2022/09/insta.png" width="50" height="84" alt="" /></a></td>
-                                                                                                <td align="center"><a href="#"><img src="https://wordpress-598981-2870265.cloudwaysapps.com/wp-content/uploads/2022/09/mail.png" width="50" height="84" alt="" /></a></td>
+                                                                                                <td align="center"><a href="https://www.facebook.com/olsonbaker/"><img src="https://wordpress-598981-2870265.cloudwaysapps.com/wp-content/uploads/2022/09/fb.png" width="50" height="84" alt="" /></a></td>
+                                                                                                <td align="center"><a href="https://twitter.com/OlsonBaker"><img src="https://wordpress-598981-2870265.cloudwaysapps.com/wp-content/uploads/2022/09/twitter.png" width="50" height="84" alt="" /></a></td>
+                                                                                                <td align="center"><a href="https://www.pinterest.co.uk/OlsonAndBaker/"><img src="https://wordpress-598981-2870265.cloudwaysapps.com/wp-content/uploads/2022/09/pinterest.png" width="50" height="84" alt="" /></a></td>
+                                                                                                <td align="center"><a href="https://www.instagram.com/olsonbaker/"><img src="https://wordpress-598981-2870265.cloudwaysapps.com/wp-content/uploads/2022/09/insta.png" width="50" height="84" alt="" /></a></td>
+                                                                                                <td align="center"><a href="https://g.page/olsonbaker?share"><img src="https://wordpress-598981-2870265.cloudwaysapps.com/wp-content/uploads/2022/09/mail.png" width="50" height="84" alt="" /></a></td>
                                                                                             </tr>
                                                                                         </tbody>
                                                                                     </table>
